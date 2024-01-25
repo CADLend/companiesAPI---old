@@ -18,72 +18,13 @@ const app = express();
 const HTTP_PORT = process.env.PORT || 3000;
 const db = new CompaniesDB();
 
-const sampleCompanies = [
-    {
-        "name": "AlphaTech",
-        "permalink": "http://example.com/alphatech",
-        "crunchbase_url": "http://crunchbase.com/alphatech",
-        "homepage_url": "http://www.alphatech.com",
-        "blog_url": "http://www.alphatech.com/blog",
-        "blog_feed_url": "http://www.alphatech.com/blog/feed",
-        "twitter_username": "alphatech",
-        "category_code": "tech",
-        "number_of_employees": 100,
-        "founded_year": 2020,
-        "founded_month": 1,
-        "founded_day": 1,
-        "email_address": "contact@alphatech.com",
-        "phone_number": "123-456-7890",
-        "description": "A fake company for testing purposes",
-        "overview": "Overview of AlphaTech",
-        "total_money_raised": "$10M",
-        "external_links": []
-    },
-    {
-        "name": "BetaSolutions",
-        "permalink": "http://example.com/betasolutions",
-        "crunchbase_url": "http://crunchbase.com/betasolutions",
-        "homepage_url": "http://www.betasolutions.com",
-        "blog_url": "http://www.betasolutions.com/blog",
-        "blog_feed_url": "http://www.betasolutions.com/blog/feed",
-        "twitter_username": "betasolutions",
-        "category_code": "tech",
-        "number_of_employees": 100,
-        "founded_year": 2020,
-        "founded_month": 1,
-        "founded_day": 1,
-        "email_address": "contact@betasolutions.com",
-        "phone_number": "123-456-7890",
-        "description": "A fake company for testing purposes",
-        "overview": "Overview of BetaSolutions",
-        "total_money_raised": "$10M",
-        "external_links": []
-    },
-    {
-        "name": "GammaCorp",
-        "permalink": "http://example.com/gammacorp",
-        "crunchbase_url": "http://crunchbase.com/gammacorp",
-        "homepage_url": "http://www.gammacorp.com",
-        "blog_url": "http://www.gammacorp.com/blog",
-        "blog_feed_url": "http://www.gammacorp.com/blog/feed",
-        "twitter_username": "gammacorp",
-        "category_code": "tech",
-        "number_of_employees": 100,
-        "founded_year": 2020,
-        "founded_month": 1,
-        "founded_day": 1,
-        "email_address": "contact@gammacorp.com",
-        "phone_number": "123-456-7890",
-        "description": "A fake company for testing purposes",
-        "overview": "Overview of GammaCorp",
-        "total_money_raised": "$10M",
-        "external_links": []
-    }
-]
-
-
 // JSON parser
 app.use(express.json());
+
+app.get('/', (req, res) => {
+    console.log("Default route (\'/\')");
+    res.json({message: "API is Listening!"});
+})
 
 app.post('/api/companies', (req, res) => {
     const newCompInfo = req.body;
