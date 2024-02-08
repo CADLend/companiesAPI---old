@@ -1,10 +1,10 @@
 /*********************************************************************************
-*  WEB422 – Assignment 1
+*  WEB422 – Assignment 2
 *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  
 *  No part of this assignment has been copied manually or electronically from any other source
 *  (including web sites) or distributed to other students.
 * 
-*  Name: Jihun Yu Student ID: 107890220 Date: Jan-20-2024
+*  Name: Jihun Yu Student ID: 107890220 Date: Feb-07-2024
 *  Cyclic Link: https://energetic-sundress-deer.cyclic.app/
 *
 ********************************************************************************/ 
@@ -13,6 +13,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const CompaniesDB = require('./modules/companiesDB.js');
+const loadCompanyData = require('./solution/js/main');
 
 const app = express();
 const HTTP_PORT = process.env.PORT || 3000;
@@ -49,7 +50,8 @@ app.get('/api/companies', (req, res) => {
 
     db.getAllCompanies(page, perPage, name)
         .then((companies) => {
-            res.json(companies);
+            loadCompanyData(name);
+            res.sendFile(path.join(__dirname,'index.html'));
         })
         .catch((err) => {
             res.status(500).json({ error: err.message});
