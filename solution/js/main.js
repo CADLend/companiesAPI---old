@@ -54,8 +54,16 @@ function companyObjectToTableRowTemplate(companies) {
 async function searchByName() {
   try {
     const companyName = document.getElementById('searchInput').value.toLowerCase();
+    
     console.log(companyName); 
-
+    const response = await fetch(`https://energetic-sundress-deer.cyclic.app/api/companies?page=${page}&perPage=${perPage}&name${companyName}`)
+    
+    if(response.ok) {
+      throw new Error('could not fetch');
+    }else {
+      const data = await response.json();
+      companyObjectToTableRowTemplate(data);      
+    }
 
   } catch (err) {
     console.error(err);
