@@ -22,13 +22,13 @@ async function loadCompanyData(name = null) {
     }
 
     const companies = await response.json(); 
-    updateTableWithCompanies(companies)   
+    companyObjectToTableRowTemplate (companies)   
   } catch (err) {
     console.error(`Could not fetch: ${err}`);
   }
 }
 
-function updateTableWithCompanies(companies) {
+function companyObjectToTableRowTemplate (companies) {
   console.log("Updating...");
   const tableBody = document.querySelector('#companiesTable tbody');
   tableBody.innerHTML = '';
@@ -43,7 +43,7 @@ function updateTableWithCompanies(companies) {
       <td>${company.category_code}</td>
       <td>${company.founded_year || '--'}</td>
       <td><a href="${company.homepage_url}" target="_blank">Website</a></td>
-      <td>${company.tag_list}</td>
+      <td>${company.tag_list.length > 1 ? `${company.tag_list[0]}, ${company.tag_list[1]}`: `--`}</td>
     `;
     tableBody.appendChild(row);
   });
