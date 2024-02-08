@@ -21,6 +21,7 @@ const db = new CompaniesDB();
 
 // JSON parser
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'solution')));
 
 app.get('/', (req, res) => {
     console.log("Default route (\'/\')");
