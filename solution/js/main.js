@@ -51,5 +51,16 @@ function companyObjectToTableRowTemplate(companies) {
   });
 }
 
+async function searchByName() {
+  try {
+    const companyName = document.getElementById('searchInput').value.toLowerCase();
+    console.log(companyName); 
+
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 console.log("Inside main.js")
 loadCompanyData();
