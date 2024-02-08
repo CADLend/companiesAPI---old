@@ -13,7 +13,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const CompaniesDB = require('./modules/companiesDB.js');
-const loadCompanyData = require('./solution/js/main');
 
 const app = express();
 const HTTP_PORT = process.env.PORT || 3000;
@@ -24,7 +23,7 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
     console.log("Default route (\'/\')");
-    res.json({message: "API is Listening!"});
+    res.sendFile(path.join(__dirname, 'solution', 'index.html'));
 })
 
 app.post('/api/companies', (req, res) => {
@@ -50,8 +49,7 @@ app.get('/api/companies', (req, res) => {
 
     db.getAllCompanies(page, perPage, name)
         .then((companies) => {
-            loadCompanyData(name);
-            res.sendFile(path.join(__dirname,'index.html'));
+            res.json(companies);
         })
         .catch((err) => {
             res.status(500).json({ error: err.message});
