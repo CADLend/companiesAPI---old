@@ -28,22 +28,24 @@ async function loadCompanyData(name = null) {
   }
 }
 
-function companyObjectToTableRowTemplate (companies) {
+function companyObjectToTableRowTemplate(companies) {
   console.log("Updating...");
   const tableBody = document.querySelector('#companiesTable tbody');
   tableBody.innerHTML = '';
 
   companies.forEach(company => {
+    const tags = company.tag_list ? company.tag_list.split(',').map(tag => tag.trim()).filter((tag, index) => index < 2).join(', ') : '--';
+
     const row = document.createElement('tr');
     row.innerHTML = `
       <td>${company.name}</td>
-      <td>${company.description}</td>
+      <td>${company.description || '--'}</td>
       <td>${company.number_of_employees || '--'}</td>
-      <td>${company.offices.length > 0 ? `${company.offices[0].city}, ${company.offices[0].country}` : '--'}</td>
-      <td>${company.category_code}</td>
-      <td>${company.founded_year || '--'}</td>
-      <td><a href="${company.homepage_url}" target="_blank">Website</a></td>
-      <td>${company.tag_list.length > 1 ? `${company.tag_list[0]}, ${company.tag_list[1]}`: `--`}</td>
+      <td>${company.offices && company.offices.length > 0 ? `${company.offices[0].city}, ${company.offices[0].country}` : '--'}</td>
+      <td>${company.category_code || '--'}</td>
+      <td>${company.founded_year ? `${company.founded_month}/${company.founded_day}/${company.founded_year}` : '--'}</td>
+      <td><a href="${company.homepage_url || '#'}" target="_blank">${company.homepage_url || 'No Website'}</a></td>
+      <td>${tags}</td>
     `;
     tableBody.appendChild(row);
   });
