@@ -31,11 +31,10 @@ async function loadCompanyData(name = null) {
 function updateTableWithCompanies(companies) {
   console.log("Updating...");
   const tableBody = document.querySelector('#companiesTable tbody');
-  tableBody.innerHTML = ''; // Clear current content
+  tableBody.innerHTML = '';
 
   companies.forEach(company => {
     const row = document.createElement('tr');
-    // Assuming 'company' object structure matches your needs, adjust accordingly
     row.innerHTML = `
       <td>${company.name}</td>
       <td>${company.description}</td>
